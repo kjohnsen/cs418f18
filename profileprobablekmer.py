@@ -1,11 +1,11 @@
-with open('input.txt', 'r') as fh:
-    text = fh.readline().strip()
-    k = int(fh.readline().strip())
-    profile = {}
-    profile['A'] = [float(x) for x in fh.readline().strip().split(' ')]
-    profile['C'] = [float(x) for x in fh.readline().strip().split(' ')]
-    profile['G'] = [float(x) for x in fh.readline().strip().split(' ')]
-    profile['T'] = [float(x) for x in fh.readline().strip().split(' ')]
+# with open('input.txt', 'r') as fh:
+#     text = fh.readline().strip()
+#     k = int(fh.readline().strip())
+#     profile = {}
+#     profile['A'] = [float(x) for x in fh.readline().strip().split(' ')]
+#     profile['C'] = [float(x) for x in fh.readline().strip().split(' ')]
+#     profile['G'] = [float(x) for x in fh.readline().strip().split(' ')]
+#     profile['T'] = [float(x) for x in fh.readline().strip().split(' ')]
 
 def kmer_prob(kmer, profile):
     prob = 1
@@ -25,4 +25,4 @@ def profile_most_probable_kmer(text, k, profile):
             winner = kmer
     return winner
 
-print(profile_most_probable_kmer(text, k, profile))
+# print(profile_most_probable_kmer(text, k, profile))
