@@ -23,6 +23,9 @@ def profile_most_probable_kmer(text, k, profile):
         if prob > winner_prob:
             winner_prob = prob
             winner = kmer
-    return winner
+    if winner != '':
+        return winner
+    else:
+         return text[i:i+k]
 
 # print(profile_most_probable_kmer(text, k, profile))

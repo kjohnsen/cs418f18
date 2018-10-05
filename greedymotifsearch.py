@@ -35,12 +35,12 @@ def score_motifs(motifs):
 
 def greedy_motif_search(sequences, k, t):
     best_motifs = [seq[0:k] for seq in sequences]
+    best_score = score_motifs(best_motifs)
     for i in range(len(sequences[0]) - k + 1):
         motifs = []
         motifs.append(sequences[0][i:i+k])
         for j in range(1, t):
             profile = profile_from_motifs(motifs)
-            print(profile)
             motifs.append(profile_most_probable_kmer(sequences[j], k, profile))
         score = score_motifs(motifs)
         if score < best_score:
