@@ -15,7 +15,7 @@ def kmer_prob(kmer, profile):
     return prob
 
 def profile_most_probable_kmer(text, k, profile):
-    winner_prob = 0
+    winner_prob = -1
     winner = ''
     for i in range(len(text) - k + 1):
         kmer = text[i:i+k]
@@ -23,9 +23,6 @@ def profile_most_probable_kmer(text, k, profile):
         if prob > winner_prob:
             winner_prob = prob
             winner = kmer
-    if winner != '':
-        return winner
-    else:
-         return text[i:i+k]
+    return winner
 
 # print(profile_most_probable_kmer(text, k, profile))

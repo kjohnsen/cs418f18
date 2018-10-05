@@ -6,15 +6,15 @@ with open('input.txt', 'r') as fh:
     k, t = [int(x) for x in fh.readline().strip().split(' ')]
     sequences = fh.read().splitlines()
 
-def profile_from_motifs(motifs):
+def profile_from_motifs_pseudocounts(motifs):
     t = len(motifs)
     profile = {'A': [], 'C': [], 'G': [], 'T': []}
     for i in range(len(motifs[0])):
         column = [motif[i] for motif in motifs]
-        profile['A'].append(column.count('A') / t)
-        profile['C'].append(column.count('C') / t)
-        profile['G'].append(column.count('G') / t)
-        profile['T'].append(column.count('T') / t)
+        profile['A'].append((1+column.count('A')) / (t+1))
+        profile['C'].append((1+column.count('C')) / (t+1))
+        profile['G'].append((1+column.count('G')) / (t+1))
+        profile['T'].append((1+column.count('T')) / (t+1))
     return profile
 
 def most_common(lst):
@@ -34,14 +34,14 @@ def score_motifs(motifs):
         score += hamming_distance(consensus, motif)
     return score
 
-def greedy_motif_search(sequences, k, t):
+def greedy_motif_search_pseudocounts(sequences, k, t):
     print(sequences)
     best_motifs = [seq[0:k] for seq in sequences]
     best_score = score_motifs(best_motifs)
     for i in range(len(sequences[0]) - k + 1):
         motifs = [sequences[0][i:i + k]]
         for j in range(1, t):
-            profile = profile_from_motifs(motifs)
+            profile = profile_from_motifs_pseudocounts(motifs)
             motifs.append(profile_most_probable_kmer(sequences[j], k, profile))
         score = score_motifs(motifs)
         if score < best_score:
@@ -52,4 +52,4 @@ def greedy_motif_search(sequences, k, t):
 # print(consensus_motif(['ACA', 'ATG', 'TCA']))
 # print(score_motifs(['ACA', 'ATG', 'TCA']))
 if __name__ == '__main__':
-    print('\n'.join(greedy_motif_search(sequences, k, t)))
+    print('\n'.join(greedy_motif_search_pseudocounts(sequences, k, t)))
